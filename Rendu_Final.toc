@@ -1,29 +1,31 @@
 \babel@toc {french}{}
-\contentsline {section}{\numberline {1}Introduction : L'Automobile face à l'Urgence Climatique et Sanitaire}{3}{section.1}%
+\contentsline {section}{\numberline {1}Introduction : L'Automobile face à l'Urgence Climatique}{3}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Le contexte sociopolitique : de la liberté à la contrainte}{3}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Le paradoxe de la perception : la "Vision Tunnel" du \ce {CO2}}{3}{subsection.1.2}%
 \contentsline {section}{\numberline {2}Analyse de la Réglementation Européenne : Entre Ambition et Flexibilité}{3}{section.2}%
-\contentsline {subsection}{\numberline {2.1}La Norme CAFE : La gestion par la flotte}{3}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Le mécanisme de "Pooling" (Article 6)}{3}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}La surveillance des données d'exploitation réelle : L'Article 7 et le dispositif OBFCM}{4}{subsection.2.3}%
-\contentsline {paragraph}{Le rôle du dispositif OBFCM}{4}{section*.2}%
+\contentsline {subsection}{\numberline {2.1}La Norme CAFE : La gestion par la flotte}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Le mécanisme de "Pooling" (Article 6)}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}La surveillance des données réelles : L'Article 7 et le dispositif OBFCM}{4}{subsection.2.3}%
+\contentsline {paragraph}{Le rôle du dispositif OBFCM.}{4}{section*.2}%
 \contentsline {section}{\numberline {3}Analyse des Métaux Critiques : Le Coût Invisible de la Dépollution}{4}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Pourquoi ces métaux ? Une nécessité catalytique}{4}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Le coût financier : Une volatilité extrême}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.1}Pourquoi ces métaux ? Une nécessité catalytique}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Le coût financier : Une volatilité extrême}{5}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}L'impact environnemental : Le paradoxe de l'extraction}{5}{subsection.3.3}%
-\contentsline {section}{\numberline {4}Analyse de cycle de vie (ACV)}{5}{section.4}%
-\contentsline {subsection}{\numberline {4.1}L'amont minier : Le coût caché de l'électrification et de l'hybridation}{5}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}La dépendance au Mix Énergétique : L'électricité n'est pas neutre}{6}{subsection.4.2}%
+\contentsline {section}{\numberline {4}L'Analyse de Cycle de Vie (ACV) : Au-delà de l'Usage}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}L'amont minier : Le coût caché de l'électrification}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}La dépendance au mix énergétique : L'électricité n'est pas neutre}{6}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Synthèse : Le risque de transfert de pollution}{6}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Analyse des métaux et ACV}{6}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Le coût des métaux critiques : Platine, Palladium et Rhodium}{6}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}L'ACV : Au-delà de l'échappement}{6}{subsection.5.2}%
-\contentsline {section}{\numberline {6}Les Lois de la Physique : Pourquoi la Masse est l'Ennemi Public n°1}{7}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Inertie et Énergie Cinétique : Une démonstration rigoureuse}{7}{subsection.6.1}%
-\contentsline {subsubsection}{\numberline {6.1.1}Comparaison par le prisme du service rendu}{7}{subsubsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.2}Les forces dissipatives : Résistance au roulement et Air}{8}{subsection.6.2}%
-\contentsline {section}{\numberline {7}La Chimie du Moteur : Quand le Poids devient Poison}{8}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Le mécanisme de formation des NOx}{8}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}L'abrasion : le problème des véhicules électriques lourds}{8}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Surveillance des données réelles (Article 7 et OBFCM)}{9}{subsection.7.3}%
-\contentsline {section}{\numberline {8}Revue de Littérature et Analyse Économétrique}{9}{section.8}%
+\contentsline {section}{\numberline {5}Les Lois de la Physique : Pourquoi la Masse est l'Ennemi Public N°1}{6}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Inertie et Énergie Cinétique : Une démonstration rigoureuse}{6}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Comparaison par le prisme du service rendu}{7}{subsubsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.2}Les forces dissipatives : Résistance au roulement et traînée aérodynamique}{7}{subsection.5.2}%
+\contentsline {section}{\numberline {6}La Chimie du Moteur : Quand le Poids devient Poison}{8}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Le mécanisme de formation des \ce {NOx}}{8}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}L'abrasion : le problème des véhicules électriques lourds}{8}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Revue de Littérature et Approches Économétriques}{8}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Convergence des résultats : la masse et la puissance comme déterminants centraux}{8}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Les modèles de panel dynamique}{9}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}L'approche microéconométrique sur données de certification}{9}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Les modèles de parc dynamiques}{9}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}L'approche expérimentale sur données réelles}{9}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Limites méthodologiques et perspectives}{10}{subsection.7.6}%
