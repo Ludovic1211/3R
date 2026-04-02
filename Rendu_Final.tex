@@ -1,0 +1,67 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- Packages de base ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath, amssymb, amsthm} % Pour les maths
+\usepackage{graphicx} % Pour les images
+\usepackage{booktabs} % Pour de beaux tableaux
+\usepackage{siunitx} % Pour les unités (ex: \unit{\gram\per\km})
+\usepackage[hidelinks]{hyperref} % Liens cliquables
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% --- Pour la chimie (NOx, métaux rares) ---
+\usepackage[version=4]{mhchem} 
+
+% --- Informations du document ---
+\title{Projet 3R : Étude des caractéristiques influençant les émissions des véhicules}
+\author{Ludovic Courtin, Mathéo Richer, Marc Ahanhanzo Glele}
+\date{Année Universitaire 2025-2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Ce rapport analyse les déterminants physiques et réglementaires des émissions polluantes du parc automobile. Alors que l'attention médiatique se cristallise sur le \ce{CO2}, nous démontrons ici que la masse des véhicules est la variable critique influençant non seulement les émissions de gaz à effet de serre, mais aussi la production d'oxydes d'azote (\ce{NOx}) et de particules fines par abrasion.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction : Un parc en transition lente}
+Le parc automobile français actuel présente une inertie structurelle forte malgré l'urgence climatique[cite: 22, 183]. Avec près d'une voiture pour deux habitants, le parc reste dominé à \SI{89}{\percent} par des motorisations thermiques[cite: 187, 242]. 
+
+Une part significative de ces véhicules (\SI{26,5}{\percent}) est classée Crit'Air 3[cite: 188, 246]. Au-delà de l'aspect écologique, cette situation engendre un coût sanitaire majeur, estimé à environ \num{40000} décès prématurés par an en France[cite: 189, 250].
+
+\section{Cadre Réglementaire et Limites des Protocoles}
+
+\subsection{Objectifs Européens et Norme CAFE}
+Le Règlement (UE) 2019/631 fixe des objectifs contraignants, notamment un seuil de \SI{95}{\gram} de \ce{CO2}/km pour les voitures neuves[cite: 33, 253]. Cependant, la régulation repose sur la norme CAFE (\textit{Corporate Average Fuel Economy}), qui calcule une moyenne par constructeur[cite: 200, 270]. Ce système permet de compenser la vente de véhicules lourds et polluants (type SUV) par des véhicules à faibles émissions[cite: 201, 271].
+
+\subsection{Évolution des cycles de test : du NEDC au WLTP}
+Le passage du cycle NEDC au WLTP en 2021 visait à réduire l'écart constaté entre les mesures en laboratoire et la conduite réelle, un écart qui atteignait souvent \SI{40}{\percent}[cite: 36, 206, 288]. Le cycle WLTP est plus long (\SI{30}{\minute} contre \SI{20}{\minute}) et inclut des vitesses maximales plus élevées (\SI{131}{\kilo\meter/\hour})[cite: 278, 283, 284].
+
+\section{La Masse comme Déterminant Physique Fondamental}
+
+L'analyse physique montre que la masse est le facteur multiplicateur de toutes les formes de pollution[cite: 207, 232].
+
+\subsection{Démonstration par l'énergie cinétique}
+Pour accélérer un véhicule, l'énergie cinétique $E_c$ requise est définie par :
+\begin{equation}
+    E_c = \frac{1}{2} m v^2
+\end{equation}
+
+En comparant un véhicule léger (\SI{1000}{\kilogram}) et un véhicule lourd (\SI{2000}{\kilogram}) accélérant à \SI{50}{\kilo\meter/\hour} (soit \SI{13,9}{\meter/\second})[cite: 211, 212, 213]:
+\begin{itemize}
+    \item Véhicule A : $E_c \approx \SI{96600}{\joule}$ [cite: 216]
+    \item Véhicule B : $E_c \approx \SI{193200}{\joule}$ [cite: 217]
+\end{itemize}
+Doubler la masse impose mathématiquement de doubler l'énergie mécanique nécessaire[cite: 217, 291].
+
+\subsection{Inefficacité thermique et dissipation}
+Le rendement d'un moteur thermique plafonne à environ \SI{25}{\percent}[cite: 219]. Pour fournir \SI{1}{\joule} de mouvement, le moteur dissipe \SI{3}{\joule} sous forme de chaleur[cite: 219]. Ainsi, la surconsommation de carburant liée au poids est directe et proportionnelle[cite: 221, 224].
+
+\end{document}
