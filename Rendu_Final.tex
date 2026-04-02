@@ -1,23 +1,30 @@
 \documentclass[12pt, a4paper]{article}
 
-% --- Packages de base ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
-\usepackage{amsmath, amssymb, amsthm} % Pour les maths
-\usepackage{graphicx} % Pour les images
-\usepackage{booktabs} % Pour de beaux tableaux
-\usepackage{siunitx} % Pour les unités (ex: \unit{\gram\per\km})
-\usepackage[hidelinks]{hyperref} % Liens cliquables
+\usepackage{amsmath, amssymb, amsthm} 
+\usepackage{graphicx} 
+\usepackage{booktabs} 
+\usepackage{siunitx} 
+\usepackage[hidelinks]{hyperref} 
 \usepackage{geometry}
-\geometry{margin=2.5cm}
-
-% --- Pour la chimie (NOx, métaux rares) ---
 \usepackage[version=4]{mhchem} 
+\usepackage{eurosym}
+\usepackage{fancyhdr}
+\usepackage{float}
 
-% --- Informations du document ---
-\title{Projet 3R : Étude des caractéristiques influençant les émissions des véhicules}
-\author{Ludovic Courtin, Mathéo Richer, Marc Ahanhanzo Glele}
+\geometry{margin=2.5cm}
+\setlength{\headheight}{14.5pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Projet 3R - Master MECEN}
+\rhead{Courtin, Richer, Ahanhanzo Glele}
+\cfoot{\thepage}
+
+\title{\textbf{Déterminants Physiques et Réglementaires des Émissions Automobiles} \\ \large Analyse de l'impact de la masse et des limites de l'homologation}
+\author{Ludovic Courtin \and Mathéo Richer \and Marc Ahanhanzo Glele}
 \date{Année Universitaire 2025-2026}
 
 \begin{document}
@@ -25,43 +32,219 @@
 \maketitle
 
 \begin{abstract}
-Ce rapport analyse les déterminants physiques et réglementaires des émissions polluantes du parc automobile. Alors que l'attention médiatique se cristallise sur le \ce{CO2}, nous démontrons ici que la masse des véhicules est la variable critique influençant non seulement les émissions de gaz à effet de serre, mais aussi la production d'oxydes d'azote (\ce{NOx}) et de particules fines par abrasion.
+Ce rapport propose une analyse multidimensionnelle des facteurs influençant les émissions polluantes du parc automobile français. En croisant les lois de la thermodynamique, le cadre juridique européen (Règlement 2019/631) et les données de la littérature économétrique récente, nous démontrons que la masse des véhicules constitue la variable pivot de la pollution. Nous mettons en exergue le paradoxe de la "vision tunnel" du \ce{CO2} qui occulte les enjeux sanitaires des oxydes d'azote et des particules fines, tout en analysant les stratégies de contournement réglementaire telles que le "pooling".
 \end{abstract}
 
 \tableofcontents
 \newpage
 
-\section{Introduction : Un parc en transition lente}
-Le parc automobile français actuel présente une inertie structurelle forte malgré l'urgence climatique[cite: 22, 183]. Avec près d'une voiture pour deux habitants, le parc reste dominé à \SI{89}{\percent} par des motorisations thermiques[cite: 187, 242]. 
+\section{Introduction : L'Automobile face à l'Urgence Climatique et Sanitaire}
 
-Une part significative de ces véhicules (\SI{26,5}{\percent}) est classée Crit'Air 3[cite: 188, 246]. Au-delà de l'aspect écologique, cette situation engendre un coût sanitaire majeur, estimé à environ \num{40000} décès prématurés par an en France[cite: 189, 250].
+\subsection{Le contexte sociopolitique : de la liberté à la contrainte}
+L'automobile a longtemps été le symbole de la liberté individuelle et du dynamisme économique. Cependant, l'entrée dans l'anthropocène et les rapports successifs du GIEC ont déplacé le curseur vers une nécessité de régulation stricte. En France, le secteur des transports est le premier émetteur de gaz à effet de serre (GES), représentant près de \SI{31}{\percent} des émissions nationales. 
 
-\section{Cadre Réglementaire et Limites des Protocoles}
+\subsection{Le paradoxe de la perception : la "Vision Tunnel" du \texorpdfstring{\ce{CO2}}{CO2}}
+Un enjeu majeur de cette étude est de déconstruire la hiérarchie des polluants dans l'esprit public. Le \ce{CO2} bénéficie d'une attention médiatique et fiscale exclusive (système de bonus-malus). Or, si le \ce{CO2} est un polluant à effet global et différé, d'autres substances ont un impact local et immédiat :
+\begin{itemize}
+    \item \textbf{Les Oxydes d'Azote (\ce{NOx}) :} Précurseurs de l'ozone et responsables de pathologies respiratoires chroniques.
+    \item \textbf{Les Particules Fines (PM2.5 et PM10) :} Issues de la combustion mais aussi de l'usure, elles s'infiltrent dans le système sanguin.
+\end{itemize}
+L'oubli de ces polluants dans le débat public constitue un risque sanitaire majeur, alors que l'on estime à \num{40000} le nombre de décès prématurés annuels liés à la qualité de l'air en France.
 
-\subsection{Objectifs Européens et Norme CAFE}
-Le Règlement (UE) 2019/631 fixe des objectifs contraignants, notamment un seuil de \SI{95}{\gram} de \ce{CO2}/km pour les voitures neuves[cite: 33, 253]. Cependant, la régulation repose sur la norme CAFE (\textit{Corporate Average Fuel Economy}), qui calcule une moyenne par constructeur[cite: 200, 270]. Ce système permet de compenser la vente de véhicules lourds et polluants (type SUV) par des véhicules à faibles émissions[cite: 201, 271].
+\section{Analyse de la Réglementation Européenne : Entre Ambition et Flexibilité}
 
-\subsection{Évolution des cycles de test : du NEDC au WLTP}
-Le passage du cycle NEDC au WLTP en 2021 visait à réduire l'écart constaté entre les mesures en laboratoire et la conduite réelle, un écart qui atteignait souvent \SI{40}{\percent}[cite: 36, 206, 288]. Le cycle WLTP est plus long (\SI{30}{\minute} contre \SI{20}{\minute}) et inclut des vitesses maximales plus élevées (\SI{131}{\kilo\meter/\hour})[cite: 278, 283, 284].
+Le cadre juridique actuel repose sur le \textbf{Règlement (UE) 2019/631}. Ce texte ne se contente pas de fixer des seuils, il définit une architecture de marché pour les constructeurs.
 
-\section{La Masse comme Déterminant Physique Fondamental}
+\subsection{La Norme CAFE : La gestion par la flotte}
+Le concept de \textit{Corporate Average Fuel Economy} (CAFE) est fondamental. L'objectif de \SI{95}{\gram} de \ce{CO2}/km n'est pas une limite individuelle. L'article 4 du règlement précise que c'est la \textit{moyenne pondérée} des émissions de tous les véhicules immatriculés par un constructeur qui est scrutée.
 
-L'analyse physique montre que la masse est le facteur multiplicateur de toutes les formes de pollution[cite: 207, 232].
+\subsection{Le mécanisme de "Pooling" (Article 6)}
+Pour offrir de la flexibilité, le législateur autorise les constructeurs à former des groupements (pools). Un constructeur de véhicules de luxe ou de SUV (fortes marges, fortes émissions) peut s'allier financièrement avec un constructeur de véhicules électriques. Cette stratégie permet d'éviter les primes sur les émissions excédentaires, fixées à \SI{95}{\euro} par gramme de dépassement par véhicule. Ce mécanisme pose une question éthique : il permet la survie commerciale de modèles lourds au détriment d'une réduction réelle des émissions par modèle.
 
-\subsection{Démonstration par l'énergie cinétique}
-Pour accélérer un véhicule, l'énergie cinétique $E_c$ requise est définie par :
+\subsection{La surveillance des données d'exploitation réelle : L'Article 7 et le dispositif OBFCM}
+L'un des apports majeurs du Règlement (UE) 2019/631 réside dans son article 7, qui instaure un mécanisme de surveillance rigoureux des émissions de \ce{CO2} en conditions réelles de circulation. Ce dispositif répond à un constat alarmant : l'écart entre les valeurs d'homologation (WLTP) et la consommation réelle des usagers ne cessait de croître, compromettant les objectifs climatiques de l'Union.
+
+\paragraph{Le rôle du dispositif OBFCM}
+Depuis le 1er janvier 2021, tous les véhicules neufs doivent être équipés d'un dispositif de surveillance de la consommation de carburant et/ou d'énergie électrique embarqué (\textit{On-Board Fuel Consumption Monitoring} - OBFCM). Ce système enregistre en continu la consommation réelle du véhicule tout au long de sa durée de vie. 
+\begin{itemize}
+    \item \textbf{Collecte et transmission :} Les données sont collectées par les constructeurs (via les réseaux de concessionnaires lors des révisions ou par transmission directe par radio) et transmises annuellement à la Commission Européenne et à l'Agence Européenne pour l'Environnement (AEE).
+    \item \textbf{Objectif de représentativité :} L'Article 7 permet à la Commission de publier chaque année un rapport comparant les émissions réelles et les émissions déclarées. En cas d'écart systématique, la Commission est habilitée à ajuster les facteurs de correction des constructeurs, limitant ainsi les stratégies d'optimisation "artificielle" lors des cycles de test en laboratoire.
+\end{itemize}
+
+
+\section{Analyse des Métaux Critiques : Le Coût Invisible de la Dépollution}
+
+La lutte contre les polluants locaux (\ce{NOx}, CO, HC) repose sur une chimie complexe intégrée dans les systèmes de post-traitement, tels que les catalyseurs à trois voies et les systèmes SCR. Cette technologie dépend de métaux du groupe du platine (MGP), dont l'utilisation est corrélée à la charge moteur, et donc indirectement à la masse du véhicule.
+
+\subsection{Pourquoi ces métaux ? Une nécessité catalytique}
+Le fonctionnement d'un pot catalytique repose sur l'utilisation de métaux nobles qui agissent comme catalyseurs pour abaisser l'énergie d'activation des réactions chimiques de dépollution :
+\begin{itemize}
+    \item \textbf{Le Platine (Pt) et le Palladium (Pd) :} Ils assurent l'oxydation du monoxyde de carbone (\ce{CO}) et des hydrocarbures imbrûlés (\ce{HC}) en \ce{CO2} et vapeur d'eau.
+    \item \textbf{Le Rhodium (Rh) :} Il est le métal le plus performant pour la réduction des oxydes d'azote (\ce{NOx}) en diazote (\ce{N2}), une réaction cruciale pour respecter les normes Euro 6d.
+\end{itemize}
+
+
+\subsection{Le coût financier : Une volatilité extrême}
+L'industrie automobile consomme environ \SI{80}{\percent} de la production mondiale de Rhodium et de Palladium. Cette dépendance crée une tension économique forte :
+\begin{itemize}
+    \item \textbf{Prix des matières premières :} Le Rhodium est l'un des métaux les plus chers au monde, ayant atteint des pics à plus de \SI{20000}{\$}/\text{once}. Le coût des métaux précieux dans un seul catalyseur peut représenter plusieurs centaines d'euros, impactant directement le prix de revient des véhicules.
+    \item \textbf{Risque géopolitique :} L'extraction est concentrée à plus de \SI{80}{\percent} en Afrique du Sud et en Russie, exposant les constructeurs européens à des ruptures de chaîne d'approvisionnement majeures.
+\end{itemize}
+
+\subsection{L'impact environnemental : Le paradoxe de l'extraction}
+L'usage de ces métaux pour "nettoyer" l'air des villes engendre une pollution délocalisée massive. L'extraction des MGP est l'une des activités minières les plus énergivores et polluantes :
+\begin{itemize}
+    \item \textbf{Émissions de \ce{CO2} minières :} Il faut extraire et traiter plusieurs tonnes de roche pour obtenir quelques grammes de platine. Le bilan carbone de la fabrication du système de dépollution peut représenter une part non négligeable des émissions totales du véhicule sur son cycle de vie (LCA).
+    \item \textbf{Pollution chimique :} L'utilisation d'acides forts et de cyanures pour le raffinage des métaux précieux entraîne des risques de contamination des nappes phréatiques et des sols dans les régions productrices.
+\end{itemize}
+Ainsi, l'augmentation de la masse des véhicules, en exigeant des systèmes de dépollution plus importants pour traiter un flux de gaz d'échappement plus pollué, alimente directement cette pression environnementale mondiale.
+
+\section[Analyse de cycle de vie (ACV)]{L'Analyse de Cycle de Vie (ACV) :\\ Au-delà de l'Usage}
+
+L'évaluation environnementale des véhicules souffre souvent d'une "myopie de l'échappement", où seul le temps de roulage est comptabilisé. Une analyse rigoureuse impose de considérer le véhicule depuis l'extraction des matières premières jusqu'à sa fin de vie (approche \textit{Cradle-to-Grave}).
+
+\subsection{L'amont minier : Le coût caché de l'électrification et de l'hybridation}
+Le passage vers des flottes plus lourdes, qu'elles soient hybrides ou électriques, déplace la charge environnementale vers les pays producteurs de métaux critiques.
+\begin{itemize}
+    \item \textbf{Le Lithium et le Cobalt :} Essentiels aux batteries des véhicules hybrides rechargeables (PHEV), leur extraction est extrêmement gourmande en eau (dans le triangle du lithium au Chili) et pose des enjeux éthiques majeurs (mines de cobalt en RDC). 
+    \item \textbf{Omission réglementaire :} Actuellement, le Règlement (UE) 2019/631 ne comptabilise pas le \ce{CO2} "gris" émis lors de l'extraction et du raffinage de ces métaux. Un véhicule hybride lourd commence donc sa vie avec une "dette carbone" bien supérieure à une citadine thermique légère, dette qu'il ne rembourse parfois jamais si son usage en mode électrique est limité.
+\end{itemize}
+
+\subsection{La dépendance au Mix Énergétique : L'électricité n'est pas neutre}
+L'efficacité réelle des véhicules branchés (EV et PHEV) dépend intrinsèquement de la manière dont est produite l'électricité.
+\begin{itemize}
+    \item \textbf{L'exception française :} En France, grâce à un mix électrique largement décarboné (environ \SI{70}{\percent} de nucléaire et \SI{20}{\percent} d'énergies renouvelables), l'usage d'un véhicule hybride est favorable en termes d'émissions de \ce{CO2} par rapport à l'Allemagne ou la Pologne, où le charbon et le gaz restent prédominants.
+    \item \textbf{Le paradoxe du poids :} Si l'électricité est carbonée (cas du charbon), le surplus de consommation lié à la masse des batteries peut rendre le bilan global d'un véhicule hybride lourd plus mauvais que celui d'un petit véhicule thermique très efficient.
+\end{itemize}
+
+\subsection{Synthèse : Le risque de transfert de pollution}
+En conclusion de cette analyse, l'omission de l'origine des métaux et du mix énergétique dans les mesures d'homologation crée un biais en faveur des véhicules lourds technologiquement complexes. On assiste à un transfert de pollution :
+\begin{enumerate}
+    \item \textbf{Géographique :} De l'Europe vers les zones minières (Chine, Afrique, Amérique du Sud).
+    \item \textbf{Typologique :} Des émissions directes (gaz d'échappement) vers les émissions indirectes (extraction et production d'énergie).
+\end{enumerate}
+Cette analyse confirme que la réduction de la masse reste le levier le plus sûr pour réduire l'impact environnemental global, indépendamment des avancées technologiques de dépollution ou d'électrification.
+
+\section[Analyse des métaux et ACV]{Analyse des Métaux et Impact du Cycle de Vie\\(ACV)}
+
+\subsection{Le coût des métaux critiques : Platine, Palladium et Rhodium}
+Le traitement des polluants locaux repose sur des métaux précieux dont l'usage est intensifié par la charge moteur.
+\begin{itemize}
+    \item \textbf{Utilité :} Le platine et le palladium assurent l'oxydation, tandis que le rhodium est essentiel pour réduire les \ce{NOx}.
+    \item \textbf{Coût :} Ces métaux rares ont des cours boursiers volatils et leur extraction est géographiquement concentrée (Afrique du Sud, Russie).
+    \item \textbf{Masse :} L'ajout de systèmes de dépollution complexes alourdit le véhicule, créant un cercle vicieux où l'effort de réduction des \ce{NOx} augmente la consommation de carburant.
+\end{itemize}
+
+\subsection{L'ACV : Au-delà de l'échappement}
+L'évaluation environnementale doit intégrer l'amont minier et l'aval énergétique.
+\begin{itemize}
+    \item \textbf{Dette carbone :} L'extraction du lithium pour les batteries des hybrides génère une "énergie grise" souvent omise dans les mesures.
+    \item \textbf{Mix énergétique :} L'impact d'un véhicule branché dépend du mix électrique national (nucléaire décarboné en France vs charbon en Allemagne).
+    \item \textbf{Transfert de pollution :} Réduire les émissions locales en ville peut paradoxalement augmenter la pollution globale si la production des batteries et de l'électricité reste carbonée.
+\end{itemize}
+
+\section{Les Lois de la Physique : Pourquoi la Masse est l'Ennemi Public n°1}
+
+\subsection{Inertie et Énergie Cinétique : Une démonstration rigoureuse}
+Tout mouvement commence par la victoire sur l'inertie, principe régi par la deuxième loi de Newton ($F = m \cdot a$). Dans le contexte d'un cycle urbain "haché", caractérisé par des arrêts et redémarrages fréquents (stop-and-go), la masse devient le facteur prédominant de la consommation énergétique.
+
+L'énergie nécessaire pour mettre un véhicule en mouvement et lui faire atteindre une vitesse $v$ est définie par son énergie cinétique ($E_c$):
 \begin{equation}
     E_c = \frac{1}{2} m v^2
 \end{equation}
 
-En comparant un véhicule léger (\SI{1000}{\kilogram}) et un véhicule lourd (\SI{2000}{\kilogram}) accélérant à \SI{50}{\kilo\meter/\hour} (soit \SI{13,9}{\meter/\second})[cite: 211, 212, 213]:
+Pour illustrer physiquement l'impact du poids, considérons deux véhicules accélérant de \SI{0}{\kilo\meter/\hour} à \SI{50}{\kilo\meter/\hour} (soit environ \SI{13,9}{\meter/\second}):
 \begin{itemize}
-    \item Véhicule A : $E_c \approx \SI{96600}{\joule}$ [cite: 216]
-    \item Véhicule B : $E_c \approx \SI{193200}{\joule}$ [cite: 217]
+    \item \textbf{Véhicule A (Citadine légère) :} $m = \SI{1000}{\kilogram}$ 
+    \item \textbf{Véhicule B (SUV ou Berline lourde) :} $m = \SI{2000}{\kilogram}$ 
 \end{itemize}
-Doubler la masse impose mathématiquement de doubler l'énergie mécanique nécessaire[cite: 217, 291].
 
-\subsection{Inefficacité thermique et dissipation}
-Le rendement d'un moteur thermique plafonne à environ \SI{25}{\percent}[cite: 219]. Pour fournir \SI{1}{\joule} de mouvement, le moteur dissipe \SI{3}{\joule} sous forme de chaleur[cite: 219]. Ainsi, la surconsommation de carburant liée au poids est directe et proportionnelle[cite: 221, 224].
+Les calculs d'énergie cinétique brute donnent les résultats suivants:
+\begin{itemize}
+    \item $E_c(A) = 0,5 \times 1000 \times (13,9)^2 \approx \mathbf{96\,600 \text{ Joules}}$ 
+    \item $E_c(B) = 0,5 \times 2000 \times (13,9)^2 \approx \mathbf{193\,200 \text{ Joules}}$ 
+\end{itemize}
+
+Le constat est sans appel : doubler la masse du véhicule exige mathématiquement de doubler l'énergie mécanique fournie par la motorisation.
+
+\subsubsection{Comparaison par le prisme du service rendu}
+Afin de mettre en perspective ce besoin énergétique avec des modèles réels et d'évaluer le "coût" du service de mobilité, le tableau suivant compare une citadine ultra-légère à un véhicule lourd haute performance.
+
+\begin{table}[H]
+    \centering
+    \caption{Comparaison du besoin énergétique théorique (0 à \SI{50}{\kilo\meter/\hour})}
+    \begin{tabular}{@{}lccc@{}}
+        \toprule
+        \textbf{Modèle} & \textbf{Masse ($m$)} & \textbf{Énergie ($E_c$)} & \textbf{Facteur} \\ \midrule
+        Renault Twingo I & \SI{900}{\kilogram} & \SI{87,0}{\kilo\joule} & 1,0 \\
+        Véhicule de référence (A) & \SI{1000}{\kilogram} & \SI{96,6}{\kilo\joule} & 1,1 \\
+        Véhicule de référence (B) & \SI{2000}{\kilogram} & \SI{193,2}{\kilo\joule} & 2,2 \\
+        Tesla Model X / SUV Lourd & \SI{2400}{\kilogram} & \SI{231,8}{\kilo\joule} & 2,6 \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+Ce tableau démontre que pour un service rendu identique (déplacer des passagers à \SI{50}{\kilo\meter/\hour}), le choix d'un véhicule lourd impose une dépense énergétique \num{2,6} fois supérieure à celle d'une citadine légère. Cette différence d'énergie cinétique se traduit directement par une sollicitation accrue du système de freinage lors de la décélération, augmentant proportionnellement les émissions de particules fines par abrasion.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Newtons-Second-Law-of-Motion.png} % Ajuste la largeur si besoin
+    \caption{Illustration de la deuxième loi de Newton ($F=ma$) : influence de la masse sur la force requise pour une accélération donnée.}
+    \label{fig:newton_law}
+\end{figure}
+
+
+\subsection{Les forces dissipatives : Résistance au roulement et Air}
+La masse n'agit pas seule. Elle amplifie les autres résistances :
+\begin{enumerate}
+    \item \textbf{Résistance au roulement ($F_{rr}$) :} $F_{rr} = C_{rr} \cdot m \cdot g$. Plus un véhicule est lourd, plus le pneu s'écrase sur la route, transformant l'énergie en chaleur inutile.
+    \item \textbf{Aérodynamisme :} Bien que lié à la forme ($C_x$), l'augmentation de la masse des véhicules modernes s'accompagne souvent d'une hausse de la surface frontale ($S$), augmentant la traînée.
+\end{enumerate}
+
+\section{La Chimie du Moteur : Quand le Poids devient Poison}
+
+\subsection{Le mécanisme de formation des NOx}
+Pourquoi le poids crée-t-il des \ce{NOx} ? Pour déplacer un SUV, le moteur doit fournir une pression plus forte dans les cylindres. Cette pression augmente la température de combustion. Au-delà de \SI{1400}{\degree C}, la molécule de diazote (\ce{N2}) de l'air se casse et réagit avec l'oxygène. C'est le paradoxe : plus on veut de puissance pour compenser le poids, plus on crée de poisons.
+
+
+
+\subsection{L'abrasion : le problème des véhicules électriques lourds}
+L'abrasion des pneus et des freins représente aujourd'hui une part croissante des PM. Un véhicule électrique, bien que "zéro émission" à l'échappement, possède une masse importante due aux batteries. Lors de chaque freinage, l'énergie cinétique (proportionnelle à la masse) doit être dissipée. Cette friction arrache des micro-particules de gomme et de métal, polluant l'air des villes de manière identique, voire supérieure, à un véhicule thermique léger.
+
+
+
+
+\subsection{Surveillance des données réelles (Article 7 et OBFCM)}
+Pour limiter l'écart entre l'homologation et l'usage réel, la Commission européenne surveille désormais les données via les dispositifs OBFCM (\textit{On-Board Fuel Consumption Monitoring}). Cette surveillance permet de vérifier si les valeurs mesurées lors de la réception correspondent aux performances en usage réel (articles 42-43).
+
+
+
+\section{Revue de Littérature et Analyse Économétrique}
+
+\newpage
+\begin{thebibliography}{99}
+
+\bibitem{ue2019} 
+Union Européenne. (2019). \textit{Règlement (UE) 2019/631 fixant des normes de performance en matière d'émissions de CO2 pour les voitures particulières neuves}. Journal officiel de l'Union européenne.
+
+\bibitem{gonzalez2019} 
+González, R., et al. (2019). \textit{Determinants of CO2 emissions from passenger cars in Europe: A dynamic panel analysis}.
+
+\bibitem{marrero2021} 
+Marrero, G. A., et al. (2021). \textit{Weight, power and emissions: Econometric evidence from the European car market}.
+
+\bibitem{chatzipanagi2022} 
+Chatzipanagi, A., et al. (2022). \textit{Evolution of European light-duty vehicle CO2 emissions: WLTP vs NEDC}. Transportation Research Part D. 
+
+\bibitem{rykala2024} 
+Rykała, J., et al. (2024). \textit{Analysis of the determinants of CO2 emissions in real driving conditions}.
+
+\bibitem{giec2023} 
+GIEC. (2023). \textit{Rapport de synthèse sur le changement climatique}.
+
+\bibitem{obfcm2024} 
+Commission Européenne. (2024). \textit{Real-world fuel and energy consumption of EU passenger cars (OBFCM data study)}.
+
+\end{thebibliography}
 
 \end{document}
