@@ -7,7 +7,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{siunitx}
-\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks,hypertexnames=false]{hyperref}
 \usepackage{geometry}
 \usepackage[version=4]{mhchem}
 \usepackage{eurosym}
@@ -233,6 +233,271 @@ Les variables explicatives incluent le poids, la cylindrée, la puissance, la vi
 Ces études convergentes présentent néanmoins des limites communes que notre analyse s'efforce de dépasser. Premièrement, la mesure des émissions réelles reste difficile : les données d'homologation sous-estiment structurellement les émissions en usage réel, et les biais liés au changement de cycle (NEDC/WLTP) créent des discontinuités artificielles dans les séries temporelles. Deuxièmement, les fortes corrélations entre caractéristiques techniques des véhicules (masse, puissance, cylindrée) compliquent l'identification causale de l'effet propre de chaque variable. Troisièmement, les polluants locaux (\ce{NOx}, HC, particules fines) sont beaucoup moins souvent modélisés que le \ce{CO2}, créant un angle mort analytique que notre approche cherche précisément à combler.
 
 La section empirique qui suit aborde ces limites en mobilisant les données de certification ADEME et en recourant à trois familles de modèles complémentaires : la régression OLS comme point de référence, le modèle Tobit pour traiter la censure à zéro des émissions des hybrides rechargeables, et l'Analyse de Frontière Stochastique (SFA) pour mesurer l'efficacité technique individuelle de chaque véhicule par rapport à la frontière des émissions minimales atteignables.
+
+\input{section_empirique_matheo_full.tex}
+
+\iffalse
+
+% ============================================================
+\section{Analyse Empirique des Données ADEME : Résultats et Interprétation}
+% ============================================================
+
+Dans la continuité de la revue de littérature, cette section présente les résultats de notre modélisation empirique fondée sur les données de certification ADEME. L'objectif est de dépasser la "vision tunnel" focalisée sur le seul \ce{CO2}, en intégrant les polluants locaux à impact sanitaire immédiat (\ce{NOx}, HC).
+
+Comparer les émissions brutes entre véhicules crée un biais de confusion majeur : un véhicule lourd et puissant émet mécaniquement plus. Pour isoler l'efficacité technologique propre, nous retenons une stratégie en deux étapes :
+\begin{enumerate}
+    \item \textbf{Régressions OLS multi-polluants} (\ce{CO2}, HC, \ce{NOx}) en contrôlant la masse, la puissance et la carrosserie.
+    \item \textbf{Analyse de Frontière Stochastique (SFA)} pour mesurer l'efficacité relative de chaque véhicule par rapport à une frontière technologique optimale.
+\end{enumerate}
+
+\subsection{Déterminants des émissions de \texorpdfstring{\ce{CO2}}{CO2} : confirmation de l'effet massique}
+
+Le modèle OLS sur le \ce{CO2} homologué présente un très fort pouvoir explicatif ($R^2$ ajusté $= 0.9156$ ; statistique de Fisher hautement significative). Les résultats confirment les déterminants physiques :
+\begin{itemize}
+    \item \textbf{Masse à vide :} effet positif et significatif, cohérent avec les lois de l'inertie et des forces dissipatives.
+    \item \textbf{Puissance maximale :} effet positif marqué, traduisant la pénalité environnementale du surdimensionnement moteur.
+\end{itemize}
+
+En prenant le Diesel comme référence, les motorisations Essence affichent une pénalité, l'Hybride Non-Rechargeable est proche de la référence, et l'Hybride Rechargeable présente un coefficient fortement négatif, résultat compatible avec les biais du cycle WLTP. Les carrosseries volumineuses (minibus, combispace, SUV) portent également des pénalités significatives.
+
+\begin{figure}[H]
+    \raggedright
+    \includegraphics[width=0.78\textwidth]{résultats/OLS_CO2.png}
+    \caption{Modèle OLS des émissions de \ce{CO2} : effets de la masse, de la puissance, de la motorisation et de la carrosserie.}
+    \label{fig:ols_co2}
+\end{figure}
+
+\subsection{Modélisation des hydrocarbures (HC) : prédominance de la chimie de post-traitement}
+
+Le modèle HC présente un pouvoir explicatif plus faible ($R^2$ ajusté $= 0.2451$), ce qui est cohérent avec la nature du polluant : les HC dépendent d'abord de l'efficacité du catalyseur et de sa montée en température, plus que des seules contraintes mécaniques.
+
+Le coefficient de masse est négatif et significatif dans l'échantillon, ce qui peut refléter une montée en température plus rapide du post-traitement sur des motorisations plus généreuses thermiquement. La puissance brute est peu discriminante. En revanche, les motorisations à allumage commandé (Essence et hybrides) sont nettement plus performantes que la référence Diesel sur ce polluant précis.
+
+\begin{figure}[H]
+    \raggedleft
+    \includegraphics[width=0.78\textwidth]{résultats/OLS_HC.png}
+    \caption{Modèle OLS des émissions d'hydrocarbures imbrûlés (HC).}
+    \label{fig:ols_hc}
+\end{figure}
+
+\subsection{Modélisation des oxydes d'azote \texorpdfstring{\ce{NOx}}{NOx} : empreinte du Diesel et coût du post-traitement}
+
+Le modèle \ce{NOx} affiche un niveau intermédiaire d'explication ($R^2$ ajusté $= 0.3152$). Les résultats soulignent la fracture technologique entre motorisations : par rapport au Diesel, Essence et hybrides présentent des coefficients fortement négatifs, cohérents avec le fait que les conditions de combustion Diesel favorisent davantage la formation de \ce{NOx} à la source.
+
+Le coefficient de masse ressort négatif dans les émissions \textit{tailpipe}, ce qui suggère qu'une partie des véhicules plus lourds bénéficie de systèmes de post-traitement plus coûteux et performants (SCR, injection d'AdBlue), donc d'une meilleure dépollution à l'échappement malgré un potentiel de formation amont plus élevé.
+
+\begin{figure}[H]
+    \raggedright
+    \includegraphics[width=0.78\textwidth]{résultats/OLS_Nox.png}
+    \caption{Modèle OLS des émissions de \ce{NOx}.}
+    \label{fig:ols_nox}
+\end{figure}
+
+\subsection{Analyse de Frontière Stochastique (SFA) : mesure de l'efficience technologique}
+
+La SFA complète l'OLS en estimant une frontière d'émissions minimales conditionnelle aux contraintes physiques (masse, puissance, carrosserie). Les scores d'efficacité sont compris entre 0 et 1 : 1 indique un véhicule sur la frontière optimale.
+
+\subsubsection{Efficacité technique \texorpdfstring{\ce{CO2}}{CO2} des motorisations Essence}
+
+La distribution est extrêmement resserrée près de 1 (autour de 0.9988--0.9989), ce qui indique une maturité technologique très avancée et une faible marge de différenciation entre constructeurs pour le rendement \ce{CO2} à architecture comparable.
+
+\begin{figure}[H]
+    \raggedleft
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_CO2_Essence.png}
+    \caption{Distribution SFA de l'efficacité \ce{CO2} -- motorisation Essence.}
+    \label{fig:sfa_co2_essence}
+\end{figure}
+
+\subsubsection{Efficacité technique \texorpdfstring{\ce{CO2}}{CO2} des motorisations Diesel}
+
+Résultat analogue : scores quasi saturés autour de 0.999, ce qui confirme que les écarts de \ce{CO2} absolu sont principalement pilotés par la physique (masse, traînée, roulement) davantage que par l'inefficacité intrinsèque du moteur.
+
+\begin{figure}[H]
+    \raggedright
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_CO2_Diesel.png}
+    \caption{Distribution SFA de l'efficacité \ce{CO2} -- motorisation Diesel.}
+    \label{fig:sfa_co2_diesel}
+\end{figure}
+
+\subsubsection{Efficacité technique \texorpdfstring{\ce{CO2}}{CO2} des Hybrides Rechargeables}
+
+La distribution est nettement plus étalée (environ 0.55 à 1.00 ; moyenne proche de 0.83), ce qui met en évidence une forte hétérogénéité des architectures PHEV et de leurs stratégies d'optimisation.
+
+\begin{figure}[H]
+    \raggedleft
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_CO2_Hybrides_Rechargeables.png}
+    \caption{Distribution SFA de l'efficacité \ce{CO2} -- Hybrides Rechargeables.}
+    \label{fig:sfa_co2_phev}
+\end{figure}
+
+\subsubsection{Efficacité technique \texorpdfstring{\ce{CO2}}{CO2} des Hybrides Non-Rechargeables}
+
+La structure multimodale (moyenne autour de 0.91) reflète une fracture interne entre hybridation complète (HEV, plus efficiente) et micro-hybridation (MHEV, gains plus limités).
+
+\begin{figure}[H]
+    \raggedright
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_CO2_Hybrides_non_Rechargeables.png}
+    \caption{Distribution SFA de l'efficacité \ce{CO2} -- Hybrides Non-Rechargeables.}
+    \label{fig:sfa_co2_hev}
+\end{figure}
+
+\subsection{Efficacité technique relative aux HC : homogénéité du post-traitement}
+
+Pour les motorisations à allumage commandé (Essence et hybrides), les distributions SFA HC sont très concentrées près de 1, indiquant une maîtrise industrielle forte des réactions d'oxydation au catalyseur trois voies. Cette homogénéité suggère que les différences d'architecture pèsent moins sur HC que sur \ce{CO2} ou \ce{NOx}.
+
+\begin{figure}[H]
+    \raggedleft
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_HC_Essence.png}
+    \caption{Distribution SFA de l'efficacité HC -- motorisation Essence.}
+    \label{fig:sfa_hc_essence}
+\end{figure}
+
+\begin{figure}[H]
+    \raggedright
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_HC_Hybrides_Rechargeables.png}
+    \caption{Distribution SFA de l'efficacité HC -- Hybrides Rechargeables.}
+    \label{fig:sfa_hc_phev}
+\end{figure}
+
+\begin{figure}[H]
+    \raggedleft
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_HC_Hybrides_non_Rechargeables.png}
+    \caption{Distribution SFA de l'efficacité HC -- Hybrides Non-Rechargeables.}
+    \label{fig:sfa_hc_hev}
+\end{figure}
+
+\subsection{Efficacité technique relative aux \texorpdfstring{\ce{NOx}}{NOx} : le juge de paix technologique}
+
+Les distributions \ce{NOx} mettent en évidence les arbitrages d'ingénierie et de coût de post-traitement.
+
+\subsubsection{Motorisations Essence}
+
+La dispersion est forte (moyenne autour de 0.67), ce qui signale des choix technologiques très contrastés. La réduction des \ce{NOx} dépend fortement du dimensionnement du post-traitement et des calibrations moteur.
+
+\begin{figure}[H]
+    \raggedright
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_Nox_Essence.png}
+    \caption{Distribution SFA de l'efficacité \ce{NOx} -- motorisation Essence.}
+    \label{fig:sfa_nox_essence}
+\end{figure}
+
+\subsubsection{Motorisations Diesel}
+
+La variance est également élevée (moyenne proche de 0.70), traduisant une fracture entre véhicules bien équipés en SCR et véhicules reposant sur des solutions plus limitées selon les segments et contraintes de coût.
+
+\begin{figure}[H]
+    \raggedleft
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_Nox_Diesel.png}
+    \caption{Distribution SFA de l'efficacité \ce{NOx} -- motorisation Diesel.}
+    \label{fig:sfa_nox_diesel}
+\end{figure}
+
+\subsubsection{Hybrides Rechargeables}
+
+Les scores sont élevés et resserrés (autour de 0.91), résultat compatible avec le fonctionnement en mode électrique pendant une part du protocole WLTP et avec l'écrêtage des phases de charge transitoire.
+
+\begin{figure}[H]
+    \raggedright
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_Nox_Hybrides_Rechargeables.png}
+    \caption{Distribution SFA de l'efficacité \ce{NOx} -- Hybrides Rechargeables.}
+    \label{fig:sfa_nox_phev}
+\end{figure}
+
+\subsubsection{Hybrides Non-Rechargeables}
+
+La distribution est très polarisée (de quasi 0 à 1), ce qui confirme la coexistence de systèmes complets très efficients et d'architectures de micro-hybridation moins performantes sur le front sanitaire des \ce{NOx}.
+
+\begin{figure}[H]
+    \raggedleft
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_Nox_Hybrides_non_Rechargeables.png}
+    \caption{Distribution SFA de l'efficacité \ce{NOx} -- Hybrides Non-Rechargeables.}
+    \label{fig:sfa_nox_hev}
+\end{figure}
+
+\subsection{Efficacité combinée (HC + \texorpdfstring{\ce{NOx}}{NOx}) : domination du signal \texorpdfstring{\ce{NOx}}{NOx}}
+
+L'indicateur combiné HC+\ce{NOx} est principalement piloté par la composante \ce{NOx}, les HC étant déjà proches d'un plafond d'efficacité dans la plupart des configurations.
+
+\begin{figure}[H]
+    \raggedright
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_HCNox_Diesel.png}
+    \caption{Distribution SFA de l'efficacité combinée (HC + \ce{NOx}) -- Diesel.}
+    \label{fig:sfa_hcnox_diesel}
+\end{figure}
+
+\begin{figure}[H]
+    \raggedleft
+    \includegraphics[width=0.74\textwidth]{résultats/SFA_HCNox_Hybrides_non_Rechargeables.png}
+    \caption{Distribution SFA de l'efficacité combinée (HC + \ce{NOx}) -- Hybrides Non-Rechargeables.}
+    \label{fig:sfa_hcnox_hev}
+\end{figure}
+
+\subsection{Analyse des corrélations partielles : synergies et compromis technologiques}
+
+Les corrélations calculées sur les résidus des modèles OLS permettent de neutraliser le "bruit physique" (masse, puissance, carrosserie) et d'identifier les synergies ou compromis d'ingénierie :
+\begin{itemize}
+    \item \textbf{Synergies :} par exemple Essence (HC vs \ce{NOx}) et Hybrides Non-Rechargeables (\ce{CO2} vs \ce{NOx}) suggèrent qu'une architecture bien calibrée peut améliorer simultanément plusieurs polluants.
+    \item \textbf{Compromis :} des corrélations négatives observées avec les particules dans certains sous-échantillons illustrent des arbitrages connus autour de l'injection directe, de la filtration et du rendement.
+\end{itemize}
+
+\begin{figure}[H]
+    \raggedright
+    \includegraphics[width=0.80\textwidth]{résultats/Corrélations_partielles.png}
+    \caption{Matrice de corrélations partielles entre résidus d'émissions : synergies et trade-offs technologiques.}
+    \label{fig:correlations_partielles}
+\end{figure}
+
+\subsection{Palmarès d'efficience globale : meilleurs véhicules}
+
+L'agrégation des scores SFA multi-polluants met en évidence des véhicules très différents en masse et segment, ce qui confirme que l'indicateur mesure une \textit{efficience relative} conditionnelle aux contraintes physiques, et non la sobriété absolue.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{résultats/Classement_meilleurs_véhicules.png}
+    \caption{Classement des véhicules les plus efficients selon l'indicateur global SFA multi-polluants.}
+    \label{fig:classement_meilleurs}
+\end{figure}
+
+\subsection{Analyse des contre-performances : pires véhicules}
+
+Le bas du classement confirme la polarisation de certaines architectures de compromis : présence marquée de micro-hybridation peu performante et de Diesel sans post-traitement optimal sur les \ce{NOx}.
+
+\begin{figure}[H]
+    \raggedright
+    \includegraphics[width=0.80\textwidth]{résultats/Classement_pires_véhicules.png}
+    \caption{Classement des véhicules les moins efficients selon l'indicateur global SFA multi-polluants.}
+    \label{fig:classement_pires}
+\end{figure}
+
+\subsection{Classement des constructeurs : efficience moyenne de gamme}
+
+L'agrégation à l'échelle constructeur révèle des stratégies contrastées selon les segments et l'allocation des coûts de dépollution. Le classement reflète une efficience relative moyenne de gamme, et non l'empreinte absolue de flotte.
+
+\begin{figure}[H]
+    \raggedleft
+    \includegraphics[width=0.80\textwidth]{résultats/Classement_Constructeurs.png}
+    \caption{Classement des constructeurs selon la moyenne des scores d'efficience globale.}
+    \label{fig:classement_constructeurs}
+\end{figure}
+
+% ============================================================
+\section{Conclusion Générale : Dépasser la Vision Tunnel pour une Régulation Holistique}
+% ============================================================
+
+Cette étude montre que l'évaluation environnementale ne peut plus se limiter au \ce{CO2}. La composante physique (masse, puissance, aérodynamisme) structure fortement les émissions absolues, tandis que la composante technologique (post-traitement, architecture hybride, calibrage) détermine l'efficience relative sur les polluants locaux.
+
+Nos résultats mettent en évidence trois messages centraux :
+\begin{enumerate}
+    \item \textbf{Un mur thermodynamique sur le \ce{CO2} des motorisations thermiques matures :} les gains additionnels dépendent de plus en plus de la sobriété de masse.
+    \item \textbf{Le rôle décisif des \ce{NOx} comme révélateur technologique :} la variabilité d'efficacité reste importante et fortement corrélée au niveau de sophistication du post-traitement.
+    \item \textbf{Les limites d'une régulation mono-indicateur :} un véhicule peut être performant en homologation \ce{CO2} et rester fragile sur d'autres dimensions sanitaires selon les conditions réelles d'usage.
+\end{enumerate}
+
+\subsection{Perspectives de politique publique}
+
+Une régulation plus robuste devrait intégrer un index multi-polluants combinant \ce{CO2}, \ce{NOx}, HC et particules, afin d'aligner les incitations industrielles sur les objectifs climatiques \textit{et} sanitaires. À défaut, le risque de contournement technico-réglementaire persiste, avec des gains apparents en laboratoire mais des bénéfices environnementaux incomplets en conditions réelles.
+
+\fi
 
 % ============================================================
 \newpage
